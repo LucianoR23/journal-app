@@ -7,7 +7,6 @@ import { IconButton } from "@mui/material"
 export const JournalPage = () => {
     return (
         <JournalLayout>
-            {/* <Typography>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque error necessitatibus eos alias animi officia explicabo, beatae vero provident modi dolore nisi possimus dolorem non voluptas quisquam earum quidem magnam?</Typography> */}
 
             <NothingSelected />
             
