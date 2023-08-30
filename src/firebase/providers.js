@@ -1,8 +1,9 @@
-import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
 import { FirebaseAuth } from "./config";
 
 
 const googleProvider = new GoogleAuthProvider()
+const githubProvider = new GithubAuthProvider()
 
 export const signInWithGoogle = async() => {
 
@@ -10,6 +11,32 @@ export const signInWithGoogle = async() => {
         
         const result = await signInWithPopup( FirebaseAuth, googleProvider )
         // const credential = GoogleAuthProvider.credentialFromResult( result )
+        const user = result.user
+        
+        const { displayName, email, photoURL, uid } = user
+
+        return {
+            ok: true,
+            displayName, email, photoURL, uid
+        }
+
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        return{
+            ok: false,
+            errorMessage
+        }
+    }
+
+}
+export const signInWithGithub = async() => {
+
+    try {
+        
+        const result = await signInWithPopup( FirebaseAuth, githubProvider )
+        // const credential = GithubAuthProvider.credentialFromResult( result )
         const user = result.user
         
         const { displayName, email, photoURL, uid } = user

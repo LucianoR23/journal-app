@@ -1,11 +1,11 @@
 import { useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link as RouterLink } from "react-router-dom"
-import { Google } from "@mui/icons-material"
+import { GitHub, Google } from "@mui/icons-material"
 import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { AuthLayout } from "../layout/AuthLayout"
 import { useForm } from "../../hooks/useForm"
-import { startGoogleSignIn, startLoginUser } from "../../store/auth/thunks"
+import { startGithubSignIn, startGoogleSignIn, startLoginUser } from "../../store/auth/thunks"
 
 
 const formData = {
@@ -30,6 +30,9 @@ export const LoginPage = () => {
 
     const onGoogleSignIn = () => {
         dispatch( startGoogleSignIn() )
+    }
+    const onGithubSignIn = () => {
+        dispatch( startGithubSignIn() )
     }
 
     return (
@@ -62,10 +65,14 @@ export const LoginPage = () => {
                             </Button>
                         </Grid>
 
-                        <Grid item xs={ 12 } md={ 6 }>
+                        <Grid item xs={ 6 } md={ 3 }>
                             <Button onClick={ onGoogleSignIn } variant="contained" fullWidth sx={{ mt: !!errorMessage ? 0 : 2 }} disabled={ isAuthenticated } >
                                 <Google />
-                                <Typography sx={{ ml: 1 }}>Google</Typography>
+                            </Button>
+                        </Grid>
+                        <Grid item xs={ 6 } md={ 3 }>
+                            <Button onClick={ onGithubSignIn } variant="contained" fullWidth sx={{ mt: !!errorMessage ? 0 : 2 }} disabled={ isAuthenticated } >
+                                <GitHub />
                             </Button>
                         </Grid>
 
