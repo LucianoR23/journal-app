@@ -1,19 +1,25 @@
-import { Close, CloseFullscreen, TurnedInNot } from "@mui/icons-material"
+import { Close, CloseFullscreen, LogoutOutlined, TurnedInNot } from "@mui/icons-material"
 import { AppBar, Avatar, Box, Divider, Drawer, Grid, Icon, IconButton, List, Toolbar, Typography } from "@mui/material"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { SideBarItem } from "./SideBarItem"
 import { useState } from "react"
 import MenuIcon from '@mui/icons-material/Menu';
+import { startLogout } from "../../store/auth/thunks"
 
 export const Sidebar = ({ drawerWidth = 240 }) => {
 
     const { displayName, photoURL } = useSelector( state => state.auth )
     const { notes } = useSelector( state => state.journal )
+    const dispatch = useDispatch()
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
     };
+
+    const onLogout = () => {
+        dispatch( startLogout() )
+    }
 
     const drawer = (
         <div>
@@ -58,6 +64,9 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography ariant="h6" fontSize='large' component='div'>Journal</Typography>
+                    <IconButton color="error" onClick={ onLogout } sx={{ position: 'fixed', right: 50 }} >
+                        <LogoutOutlined />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
             <Box
